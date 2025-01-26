@@ -1,0 +1,7 @@
+= Document Processor Job(V1.0)
+== Jobs
+
+* extract-office-job
+* extract-pdf-job
+* ocr-pdf-job
+* extract-image-job: do nothing.

@@ -1,0 +1,60 @@
+[tool.poetry]
+name = "pdf-ocr-service"
+version = "1.0.0"
+description = ""
+authors = ["jinghua <jinghua@nyquistdata.com>"]
+readme = "README.md"
+
+
+[tool.poetry.dependencies]
+python = "^3.10"
+ocrmypdf = "^14.4.0"
+psycopg2 = "2.9.1"
+sqlalchemy = "^2.0.22"
+eventlet = "^0.33.3"
+requests = "^2.31.0"
+celery = { extras = ["redis"], version = "^5.3.4" }
+tomlkit = "^0.7.2"
+minio = "^7.1.17"
+taskipy = "^1.12.0"
+concurrent-log-handler = "^0.9.24"
+pdfplumber = "^0.10.3"
+pgvector = "^0.2.4"
+tiktoken = "0.5.1"
+langchain = "0.0.325"
+pypdf = "3.16.4"
+pymupdf = "^1.23.8"
+boto3 = "^1.33.12"
+
+
+
+
+[tool.taskipy.tasks]
+test-ocr = "python -m pytest tests/ --disable-warnings"
+worker = "celery -A pdf_ocr_service worker -l info -P eventlet -n pdf-ocr-service"
+backend = "celery multi start job -A pdf_ocr_service -l info -P eventlet -n pdf-ocr-service --pidfile=./%n.pid --logfile=./logs/%n%I.log"
+stop_backend = "celery multi stopwait job -A pdf_ocr_service -n pdf-ocr-service --pidfile=./%n.pid --logfile=./logs/%n%I.log"
+
+[tool.poetry.group.dev]
+optional = true
+[tool.poetry.group.dev.dependencies]
+nacos-sdk-python = "^0.1.12"
+
+[tool.poetry.group.api]
+optional = true
+[tool.poetry.group.api.dependencies]
+pandas = "^2.2.0"
+flask = "^3.0.1"
+[tool.poetry.group.monitor]
+optional = true
+[tool.poetry.group.monitor.dependencies]
+flower = "^2.0.1"
+
+
+[tool.poetry.group.test.dependencies]
+pytest = "^7.4.0"
+pytest-mock = "^3.11.1"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

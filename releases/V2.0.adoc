@@ -1,0 +1,5 @@
+= Document Processor Job(V2.0)
+
+* Fixed https://nyquist.atlassian.net/jira/software/projects/DMS/boards/21?selectedIssue=DMS-209[pymuPdf 读取OCR识别过的文档时行内数据出现很多换行符]
+* Feature https://nyquist.atlassian.net/jira/software/projects/DMS/boards/21?selectedIssue=DMS-203[QA 里的文本高亮]
+* Feature https://nyquist.atlassian.net/jira/software/projects/DMS/boards/21?selectedIssue=DMS-210[日志文件路径配置化]
